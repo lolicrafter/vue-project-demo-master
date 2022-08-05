@@ -61,6 +61,7 @@ export default {
     this.$bus.$on('execCommand', this.execCommand)
     this.$bus.$on('export', this.export)
     this.$bus.$on('setData', this.setData)
+    this.$bus.$on('node_click', this.nodeClick)
     this.$bus.$on('startTextEdit', () => {
       this.mindMap.renderer.startTextEdit()
     })
@@ -221,6 +222,12 @@ export default {
     setData (data) {
       this.mindMap.setData(data)
       this.manualSave()
+    },
+    nodeClick (data, e) {
+      // this.mindMap.setData(data)
+      // this.manualSave()
+      console.log('nodeClick结果😀😀😀===>', data)
+      console.log('nodeClick  e结果😀😀😀===>', e)
     },
 
     /**

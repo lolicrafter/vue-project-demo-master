@@ -168,16 +168,16 @@
       </div>
     </div>
     <div class="mind-container">
-      <min-map />
+      <mind-map />
     </div>
   </div>
 </template>
 <script>
-import minMap from '@/views/mind'
+import mindMap from '@/views/mind'
 export default {
   name: 'Tree',
   components: {
-    minMap
+    mindMap
   },
   data () {
     return {
@@ -390,6 +390,7 @@ export default {
     },
     // 脑图点击联动目录树
     handleNodeClick (id) {
+      this.$bus.$emit('export', 'json', true, '思维导图')
       console.log('handleNodeClick结果😀😀😀===>', id)
       this.$nextTick(() => {
         //   节点的id 传进来
@@ -682,6 +683,7 @@ export default {
     position: relative;
     flex: 1;
     z-index: 1;
+    overflow: hidden;
   }
 }
 .tree-container {
