@@ -169,6 +169,24 @@ index f0fab06..7ce9ce9 100644
      // ...rootData,
      "theme": {
          "template": "minions",
+diff --git a/node_modules/simple-mind-map/src/View.js b/node_modules/simple-mind-map/src/View.js
+index afb07a6..2730f52 100644
+--- a/node_modules/simple-mind-map/src/View.js
++++ b/node_modules/simple-mind-map/src/View.js
+@@ -66,9 +66,11 @@ class View {
+         this.mindMap.event.on('mousewheel', (e, dir) => {
+             // // 放大
+             if (dir === 'down') {
+-                this.enlarge()
+-            } else { // 缩小
++                // this.enlarge()
+                 this.narrow()
++            } else { // 缩小
++                // this.narrow()
++                this.enlarge()
+             }
+         })
+     }
 diff --git a/node_modules/simple-mind-map/src/svg/icons.js b/node_modules/simple-mind-map/src/svg/icons.js
 index 58d4520..7061198 100644
 --- a/node_modules/simple-mind-map/src/svg/icons.js
