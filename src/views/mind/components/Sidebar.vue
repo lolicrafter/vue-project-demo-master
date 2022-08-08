@@ -5,7 +5,7 @@
     :class="{ show: show }"
     :style="{ zIndex: zIndex }"
   >
-    <span class="closeBtn el-icon-close" @click="show = false"></span>
+    <span class="closeBtn el-icon-close" @click="show = true"></span>
     <div class="sidebarHeader" v-if="title">
       {{ title }}
     </div>

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <template v-if="show">
-      <Toolbar v-if="false"></Toolbar>
+      <Toolbar v-if="true"></Toolbar>
       <Edit></Edit>
     </template>
   </div>

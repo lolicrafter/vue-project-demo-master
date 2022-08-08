@@ -9,7 +9,7 @@
     <div class="tree-container">
       <div class="tree-header">
         <div class="tree-btn">
-          <el-button
+          <!-- <el-button
             type="primary"
             size="small"
             plain
@@ -25,13 +25,20 @@
             :disabled="isMultipleShare"
             @click="handleShare(null, 1)"
             >批量分享</el-button
-          >
+          > -->
           <el-button
             type="primary"
             size="small"
             plain
             @click="handleNodeClick(52)"
             >选中节点</el-button
+          >
+          <el-button
+            type="primary"
+            size="small"
+            plain
+            @click="getNodeChild(treeData)"
+            >获取子节点</el-button
           >
           <el-button
             type="primary"
@@ -47,61 +54,48 @@
             placeholder="输入关键字进行过滤"
             v-model="filterText"
             clearable
-            @input="changeInput($event)"
           />
         </div>
         <div class="total-num" v-if="false">共 {{ totalNum }} 个文件</div>
       </div>
-      <div class="tree-box">
-        <div class="tree-nav" v-if="false">
-          <div class="item">
-            <el-checkbox
-              v-model="isCheckedAll"
-              :indeterminate="isIndeterminate"
-              :disabled="treeData.length === 0"
-              class="checkbox-style"
-              @change="handleCheckAllChange"
-            >
-            </el-checkbox
-            >名称
-          </div>
-          <div class="item">大小</div>
-          <div class="item">修改时间</div>
-          <div class="item">上传时间</div>
-          <div class="item">加密级别</div>
-          <div class="item">下载级别</div>
-          <div class="item">操作</div>
-        </div>
-        <div v-loading="loading" class="tree-content">
-          <el-tree
-            ref="tree"
-            class="tree"
-            :data="treeData"
-            node-key="directoryId"
-            :props="props"
-            :show-checkbox="true"
-            :default-expand-all="false"
-            @check="handleCheckChange"
-            @check-change="handleCurChange"
-            :filter-node-method="filterNode"
-          >
-            <span slot-scope="{ node, data }" class="custom-tree-node">
-              <template>
-                <div
-                  v-if="data.directoryType === 1"
-                  class="node_div"
-                  v-right-click:[{data}]="rightMenuObj"
-                >
-                  <span class="name-box">
-                    <el-tooltip effect="dark" placement="left">
-                      <div slot="content">
-                        {{ node.label }}
-                      </div>
-                      <i class="file-icon icon-folder"></i>
-                    </el-tooltip>
-                    {{ node.label }}
-                  </span>
-                  <!-- <span class="secret-box">
+      <div class="tree-flex">
+        <el-table :data="treeData" border style="width: 99.9%;" :fit="true" >
+          <el-table-column label="文件目录">
+            <!-- eslint-disable-next-line vue/no-unused-vars -->
+            <template slot-scope="{ row }">
+              <!-- {{row}} -->
+              <div class="tree-box">
+                <div v-loading="loading" class="tree-content">
+                  <el-tree
+                    ref="tree"
+                    class="tree"
+                    :data="row"
+                    node-key="directoryId"
+                    :props="props"
+                    :show-checkbox="true"
+                    :default-expand-all="false"
+                    @node-click="handleNodeClickTree"
+                    @check="handleCheckChange"
+                    @check-change="handleCurChange"
+                    :filter-node-method="filterNode"
+                  >
+                    <div
+                      slot-scope="{ node, data }"
+                      class="custom-tree-node"
+                      v-right-click:[{data}]="rightMenuObj"
+                    >
+                      <template>
+                        <div v-if="data.directoryType === 1" class="node_div">
+                          <span class="name-box">
+                            <el-tooltip effect="dark" placement="left">
+                              <div slot="content">
+                                {{ node.label }}
+                              </div>
+                              <i class="file-icon icon-folder"></i>
+                            </el-tooltip>
+                            {{ node.label }}
+                          </span>
+                          <!-- <span class="secret-box">
                     {{ data.secretType | secretType }}
                   </span>
                   <span class="download-box">
@@ -115,22 +109,18 @@
                       >分享</el-button
                     >
                   </span> -->
-                </div>
-                <div
-                  v-if="data.directoryType === 2"
-                  class="node_div"
-                  v-right-click:[{data}]="rightMenuObj"
-                >
-                  <span class="name-box" :title="node.label">
-                    <el-tooltip effect="dark" placement="left">
-                      <div slot="content">
-                        {{ node.label }}
-                      </div>
-                      <i :class="node.label | getIcon"></i>
-                    </el-tooltip>
-                    {{ node.label }}
-                  </span>
-                  <!-- <span class="size-box">
+                        </div>
+                        <div v-if="data.directoryType === 2" class="node_div">
+                          <span class="name-box" :title="node.label">
+                            <el-tooltip effect="dark" placement="left">
+                              <div slot="content">
+                                {{ node.label }}
+                              </div>
+                              <i :class="node.label | getIcon"></i>
+                            </el-tooltip>
+                            {{ node.label }}
+                          </span>
+                          <!-- <span class="size-box">
                     {{ data.size | renderSize }}
                   </span>
                   <span class="time-box">
@@ -160,27 +150,184 @@
                       >分享</el-button
                     >
                   </span> -->
+                        </div>
+                        <div class="node_div code-time">
+                          <div class="code">文件编码:{{ data.gmtUpdate }}</div>
+                          <div class="time">
+                            {{ data.gmtUpdate | timerFilter }}
+                          </div>
+                        </div>
+                      </template>
+                    </div>
+                  </el-tree>
                 </div>
-              </template>
-            </span>
-          </el-tree>
-        </div>
+              </div>
+            </template>
+          </el-table-column>
+        </el-table>
+        <el-table :data="treeChildArray" border style="width: 100%;" v-if="treeChildArray.length>0">
+          <el-table-column label="文件目录2">
+            <!-- eslint-disable-next-line vue/no-unused-vars -->
+            <template slot-scope="{ row }">
+              <!-- {{row}} -->
+              <div class="tree-box">
+                <div v-loading="loading" class="tree-content">
+                  <el-tree
+                    ref="treeChild"
+                    class="tree"
+                    :data="row"
+                    node-key="directoryId"
+                    :props="props"
+                    :show-checkbox="true"
+                    :default-expand-all="false"
+                    @node-click="handleNodeClickChildTree"
+                    @check="handleCheckChange"
+                    @check-change="handleCurChange"
+                    :filter-node-method="filterNode"
+                  >
+                    <div
+                      slot-scope="{ node, data }"
+                      class="custom-tree-node"
+                      v-right-click:[{data}]="rightMenuObj"
+                    >
+                      <template>
+                        <div v-if="data.directoryType === 1" class="node_div">
+                          <span class="name-box">
+                            <el-tooltip effect="dark" placement="left">
+                              <div slot="content">
+                                {{ node.label }}
+                              </div>
+                              <i class="file-icon icon-folder"></i>
+                            </el-tooltip>
+                            {{ node.label }}
+                          </span>
+                          <!-- <span class="secret-box">
+                    {{ data.secretType | secretType }}
+                  </span>
+                  <span class="download-box">
+                    {{ data.downloadType | downloadStatus }}
+                  </span>
+                  <span class="operate-box">
+                    <el-button
+                      type="text"
+                      size="small"
+                      @click.stop="() => handleShare(data, 2)"
+                      >分享</el-button
+                    >
+                  </span> -->
+                        </div>
+                        <div v-if="data.directoryType === 2" class="node_div">
+                          <span class="name-box" :title="node.label">
+                            <el-tooltip effect="dark" placement="left">
+                              <div slot="content">
+                                {{ node.label }}
+                              </div>
+                              <i :class="node.label | getIcon"></i>
+                            </el-tooltip>
+                            {{ node.label }}
+                          </span>
+                          <!-- <span class="size-box">
+                    {{ data.size | renderSize }}
+                  </span>
+                  <span class="time-box">
+                    {{ $DayTime(data.gmtUpdate).format("YYYY-MM-DD HH:mm") }}
+                  </span>
+                  <span class="upload-box">
+                    {{ $DayTime(data.gmtUpload).format("YYYY-MM-DD HH:mm") }}
+                  </span>
+                  <span class="secret-box">
+                    {{ data.secretType | secretType }}
+                  </span>
+                  <span class="download-box">
+                    {{ data.downloadType | downloadStatus }}
+                  </span>
+                  <span class="operate-box">
+                    <el-button
+                      v-if="data.downloadType === 1"
+                      type="text"
+                      size="small"
+                      @click="() => handleDownload(data, 2)"
+                      >下载</el-button
+                    >
+                    <el-button
+                      type="text"
+                      size="small"
+                      @click="() => handleShare(data, 2)"
+                      >分享</el-button
+                    >
+                  </span> -->
+                        </div>
+                        <div class="node_div code-time">
+                          <div class="code">文件编码:{{ data.gmtUpdate }}</div>
+                          <div class="time">
+                            {{ data.gmtUpdate | timerFilter }}
+                          </div>
+                        </div>
+                      </template>
+                    </div>
+                  </el-tree>
+                </div>
+              </div>
+            </template>
+          </el-table-column>
+        </el-table>
       </div>
     </div>
+
+        <!-- <div class="tree-child" v-if="treeChildArray.length > 0">
+          <tree-child
+            :treeData="treeChildArray"
+            @handleNodeClick="handleNodeClick"
+          ></tree-child>
+        </div> -->
+      <!-- </div> -->
+    <!-- </div> -->
     <div class="mind-container">
-      <mind-map />
+      <mind-map v-if="true" />
     </div>
+    <!-- <el-checkbox-group v-model="checkboxGroup1">
+      <el-checkbox-button v-for="city in cityOptions" :label="city" :key="city.name" :bgColor="city.color">{{city.name}}</el-checkbox-button>
+    </el-checkbox-group> -->
   </div>
 </template>
 <script>
 import mindMap from '@/views/mind'
+// import treeChild from './treeChild'
+// import table from 'element-ui/packages/table'
+
 export default {
   name: 'Tree',
+  filters: {
+    timerFilter (v) {
+      const date = new Date(v)
+      const Y = date.getFullYear() + '-'
+      const M =
+        (date.getMonth() + 1 < 10
+          ? '0' + (date.getMonth() + 1)
+          : date.getMonth() + 1) + '-'
+      const D = date.getDate() + ' '
+      const h = date.getHours() + ':'
+      const m = date.getMinutes() + ':'
+      const s = date.getSeconds()
+      // console.log(Y + M + D + h + m + s) // 呀麻碟,
+      return Y + M + D + h + m + s
+    }
+  },
   components: {
     mindMap
+    // 'el-table': table
+    // treeChild
+    // 'el-checkbox-button': elCheckboxButton
   },
   data () {
     return {
+      checkboxGroup1: ['上海'],
+      cityOptions: [
+        { name: '上海', color: '#0f0f0f' },
+        { name: '上海2', color: '#0f9f0f' },
+        { name: '上海3', color: '#5f2f0f' }
+      ],
+      treeChildArray: [],
       targetId: '',
       nodeIds: [],
       filterText: '',
@@ -198,10 +345,11 @@ export default {
         label: 'name',
         isLeaf: 'leaf'
       },
-      treeData: [
+      treeData: [[
         // 初始化目录树数据
         {
           directoryId: 1,
+          level: 1,
           directoryType: 2, // 1:目录 2:文件
           downloadType: 1,
           secretType: 0,
@@ -217,6 +365,7 @@ export default {
           downloadType: 1,
           secretType: 1,
           size: 5236700,
+          level: 1,
           name: '前端高级工程师内功秘籍.docx',
           gmtUpdate: 1630825270483,
           gmtUpload: 1630825248029,
@@ -228,6 +377,7 @@ export default {
           downloadType: 0,
           secretType: 1,
           size: 2267,
+          level: 1,
           name: '前端学习路线图.png',
           gmtUpdate: 1630834889072,
           gmtUpload: 1630825248029,
@@ -239,6 +389,7 @@ export default {
           downloadType: 1,
           secretType: 0,
           name: '前端开源项目汇总',
+          level: 1,
           gmtUpdate: 1630825270483,
           gmtUpload: 1630825248029,
           children: [
@@ -249,6 +400,7 @@ export default {
               downloadType: 1,
               secretType: 0,
               size: 13200,
+              level: 2,
               name: '小程序个性简历源码.zip',
               gmtUpdate: 1630825270483,
               gmtUpload: 1630825248029,
@@ -261,6 +413,7 @@ export default {
               downloadType: 1,
               secretType: 0,
               name: '电商网站项目',
+              level: 2,
               gmtUpdate: 1630825270483,
               gmtUpload: 1630825248029,
               children: [
@@ -271,6 +424,7 @@ export default {
                   downloadType: 1,
                   secretType: 0,
                   size: 132008,
+                  level: 3,
                   name: '饿了么H5移动端源码.zip',
                   gmtUpdate: 1630825270483,
                   gmtUpload: 1630825248029,
@@ -285,6 +439,7 @@ export default {
           directoryType: 1,
           downloadType: 0,
           secretType: 1,
+          level: 1,
           name: '前端工程化知识体系',
           gmtUpdate: 1630834889072,
           gmtUpload: 1630834889072,
@@ -296,6 +451,7 @@ export default {
               downloadType: 0,
               secretType: 1,
               size: 13200,
+              level: 2,
               name: 'CI/CD项目部署.doc',
               gmtUpdate: 1630834889072,
               gmtUpload: 1630834889072,
@@ -308,6 +464,7 @@ export default {
               downloadType: 0,
               secretType: 1,
               size: 335200,
+              level: 2,
               name: '前端开发规范秘籍.xlsx',
               gmtUpdate: 1630834889072,
               gmtUpload: 1630834889072,
@@ -315,7 +472,7 @@ export default {
             }
           ]
         }
-      ]
+      ]]
     }
   },
   watch: {
@@ -382,15 +539,54 @@ export default {
     }
   },
   mounted () {
-    this.getTotalNum(this.treeData)
+    // this.getTotalNum(this.treeData)
   },
   methods: {
+    getNodeChild (treeData, directoryId, isChild) {
+      let node = {
+        children: []
+      }
+      // if (this.treeData.length > 1) this.treeData.splice(1, 1)
+
+      // 找到对应的node
+      treeData.map((item) => {
+        if (item.directoryId === directoryId) {
+          if (item.children.length > 0) {
+            node = item
+          } else if (!isChild) {
+            this.treeChildArray = []
+          }
+        } else if (item.children) {
+          this.getNodeChild(item.children, directoryId)
+        }
+      })
+      if (Object.keys(node).length > 0 && node.children.length > 0) {
+        console.log('node结果😀😀😀===>', node)
+        // this.treeData.push([node])
+        this.treeChildArray = [node.children]
+      }
+      return node
+    },
     changeInput ($event) {
       this.$forceUpdate()
     },
+    handleNodeClickTree (a) {
+      console.log('a结果😀😀😀===>', a)
+      // this.handleNodeClick(a.directoryId)
+      this.getNodeChild(this.treeData[0], a.directoryId, false)
+      // console.log('b结果😀😀😀===>', b)
+      // console.log('c结果😀😀😀===>', c)
+    },
+    handleNodeClickChildTree (a) {
+      console.log('a结果😀😀😀===>', a)
+      this.handleNodeClick(a.directoryId)
+      // this.getNodeChild(this.treeData[0], a.directoryId, true)
+      // console.log('b结果😀😀😀===>', b)
+      // console.log('c结果😀😀😀===>', c)
+    },
     // 脑图点击联动目录树
     handleNodeClick (id) {
-      this.$bus.$emit('export', 'json', true, '思维导图')
+      // this.$bus.$emit('export', 'json', true, '思维导图')
       console.log('handleNodeClick结果😀😀😀===>', id)
       this.$nextTick(() => {
         //   节点的id 传进来
@@ -425,20 +621,15 @@ export default {
     },
     getNodes () {
       this.$nextTick(() => {
-        // const currentNode = this.$refs.tree.getCheckedNodes()
         const getCurrentKey = this.$refs.tree.getCheckedKeys()[0]
         if (!getCurrentKey) return
         this.$refs.tree.setCurrentKey(getCurrentKey)
         const data = this.$refs.tree.getNode(getCurrentKey)
-        // console.log('currentNode结果😀😀😀===>', currentNode)
-        // console.log('getCurrentKey结果😀😀😀===>', getCurrentKey)
-        // console.log('getNode结果😀😀😀===>', data)
         this.nodeIds = []
         this.filterNodeAndParentId(data)
         this.nodeIds.map((id) => {
           this.$refs.tree.store.nodesMap[id].expanded = true
         })
-        // console.log('nodeIds结果😀😀😀===>', this.nodeIds)
       })
     },
     // 递归检测获取父元素ID
@@ -452,9 +643,6 @@ export default {
       }
     },
     filterNode (value, data, node) {
-      // console.log('value结果😀😀😀===>', value)
-      // console.log('data结果😀😀😀===>', data)
-      // console.log('node结果😀😀😀===>', node)
       return this.filterNodeAndParent(value, data, node)
     },
     // 递归检测父元素或自己是否符合条件
@@ -678,16 +866,23 @@ export default {
   .tree-container {
     position: relative;
     z-index: 9999;
+    top: 0;
+    left: 0;
   }
   .mind-container {
-    position: relative;
-    flex: 1;
-    z-index: 1;
-    overflow: hidden;
+    // position: relative;
+    // flex: 1;
+    // z-index: 1;
+    // overflow: hidden;
   }
 }
+.tree-flex {
+  display: flex;
+  // overflow: auto;
+  // width: 300px;
+}
 .tree-container {
-  width: 300px;
+  // min-width: 300px;
   text-align: left;
   .header {
     display: flex;
@@ -732,6 +927,8 @@ export default {
       .custom-tree-node {
         width: 100%;
         font-size: 14px;
+        padding: 18px 0;
+
         .node_div {
           display: flex;
           align-items: center;
@@ -756,14 +953,23 @@ export default {
             flex: 0 0 200px;
           }
         }
+        .code-time {
+          justify-content: space-between;
+          font-size: 12px;
+          color: #000;
+          padding: 5px 0;
+        }
       }
     }
+  }
+  .tree-child {
   }
 }
 </style>
 <style lang="less">
 .el-tree-node__content {
-  padding: 8px 0;
+  // padding: 18px 0;
+  height: auto;
 }
 .el-button--small {
   font-size: 14px;

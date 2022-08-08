@@ -212,6 +212,7 @@ export default {
         })
       })
       this.bindSaveEvent()
+      this.mindMap.keyCommand.removeShortcut('Del|Backspace')
     },
 
     /**
@@ -227,7 +228,7 @@ export default {
       // this.mindMap.setData(data)
       // this.manualSave()
       console.log('nodeClick结果😀😀😀===>', data)
-      console.log('nodeClick  e结果😀😀😀===>', e)
+      // console.log('nodeClick  e结果😀😀😀===>', e)
     },
 
     /**

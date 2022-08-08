@@ -133,6 +133,7 @@ export default {
   box-shadow: 0 10px 10px #c2c1c2;
   display: none;
   border-radius: 5px;
+  z-index: 99999;
 
   ul {
     padding: 0;
