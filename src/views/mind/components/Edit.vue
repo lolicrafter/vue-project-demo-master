@@ -10,6 +10,7 @@
     <Structure :mindMap="mindMap"></Structure>
     <ShortcutKey></ShortcutKey>
     <Contextmenu :mindMap="mindMap"></Contextmenu>
+    <HoverNode :mindMap="mindMap"></HoverNode>
     <NodeNoteContentShow></NodeNoteContentShow>
   </div>
 </template>
@@ -25,6 +26,7 @@ import Count from './Count'
 import NavigatorToolbar from './NavigatorToolbar'
 import ShortcutKey from './ShortcutKey'
 import Contextmenu from './Contextmenu'
+import HoverNode from './hoverNode'
 import NodeNoteContentShow from './NodeNoteContentShow.vue'
 import { getData, storeData, storeConfig } from '@/api'
 
@@ -45,6 +47,7 @@ export default {
     NavigatorToolbar,
     ShortcutKey,
     Contextmenu,
+    HoverNode,
     NodeNoteContentShow
   },
   data () {
@@ -62,6 +65,8 @@ export default {
     this.$bus.$on('export', this.export)
     this.$bus.$on('setData', this.setData)
     this.$bus.$on('node_click', this.nodeClick)
+    this.$bus.$on('mouseover', this.mouseEvent('mouseover'))
+    this.$bus.$on('mouseout', this.mouseEvent('mouseout'))
     this.$bus.$on('startTextEdit', () => {
       this.mindMap.renderer.startTextEdit()
     })
@@ -76,6 +81,9 @@ export default {
     this.getNode()
   },
   methods: {
+    mouseEvent (event) {
+      console.log('鼠标事件结果😀😀😀===>', event)
+    },
     getNode () {
       console.log('this.mindMap.renderer结果😀😀😀===>', this.mindMap.renderer)
     },
@@ -205,9 +213,13 @@ export default {
         'expand_btn_click',
         'svg_mousedown',
         'mouseup',
-        'mode_change'
+        'mode_change',
+        'mouseover',
+        'mouseout'
       ].forEach((event) => {
         this.mindMap.on(event, (...args) => {
+          // console.log('event结果😀😀😀===>', event)
+          console.log('...args结果😀😀😀===>', ...args)
           this.$bus.$emit(event, ...args)
         })
       })
