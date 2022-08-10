@@ -1,258 +1,177 @@
 <template>
-  <div class="ov-container">
-    <el-tree :data="data" :props="defaultProps">
-      <span
-        class="custom-tree-node"
-        slot-scope="{ node, data }"
-        @click="showInfo(node, data)"
-      >
-        <i v-if="node.level == 1" class="province" />
-        <i v-else-if="node.level == 2" class="city" />
-        <i v-else-if="node.level == 3" class="data" />
-        <i
-          v-if="data.children.length !== 0"
-          :class="node.expanded ? 'el-icon-remove' : 'el-icon-circle-plus'"
-        />
-        <i v-else class="el-icon-user-solid" />
-        {{ data.label }}
-      </span>
-    </el-tree>
-    <div
-      class="test"
-      @dblclick="dbClickEvent()"
-      @click.right="rightEvent(friend)"
-    >
-      测试
-    </div>
-    <div class="right" v-right-click:[{id:19,bookid:1024}]="rightMenuObj">
-      <h1>测试右箭</h1>
-    </div>
+  <div class="app-container">
+    <el-tabs v-model="activeName" type="card">
+      <el-tab-pane label="列表模式" name="first">
+        <tree ref="treeRef" @switchActive="switchActive" />
+      </el-tab-pane>
+      <el-tab-pane label="导图模式" name="second">
+        <div class="mind-container">
+          <mind-map />
+        </div>
+      </el-tab-pane>
+    </el-tabs>
+
+    <!-- <el-checkbox-group v-model="checkboxGroup1">
+      <el-checkbox-button v-for="city in cityOptions" :label="city" :key="city.name" :bgColor="city.color">{{city.name}}</el-checkbox-button>
+    </el-checkbox-group> -->
   </div>
 </template>
-
 <script>
+import mindMap from '@/views/mind'
+import tree from '../components/Tree.vue'
+
 export default {
-  name: 'index',
+  name: 'Home',
+  components: {
+    mindMap,
+    tree
+  },
   data () {
     return {
-      defaultProps: {
-        children: 'children',
-        label: 'label'
-      },
-      data: [
-        {
-          label: '一级 1',
-          children: [
-            {
-              label: '二级 1-1',
-              children: [
-                {
-                  label: '三级 1-1-1'
-                }
-              ]
-            }
-          ]
-        },
-        {
-          label: '一级 2',
-          children: [
-            {
-              label: '二级 2-1',
-              children: [
-                {
-                  label: '三级 2-1-1'
-                }
-              ]
-            },
-            {
-              label: '二级 2-2',
-              children: [
-                {
-                  label: '三级 2-2-1'
-                }
-              ]
-            }
-          ]
-        },
-        {
-          label: '一级 3',
-          children: [
-            {
-              label: '二级 3-1',
-              children: [
-                {
-                  label: '三级 3-1-1'
-                }
-              ]
-            },
-            {
-              label: '二级 3-2',
-              children: [
-                {
-                  label: '三级 3-2-1'
-                }
-              ]
-            }
-          ]
-        },
-        {
-          label: '一级 4',
-          children: [
-            {
-              label: '三级 3-2-1'
-            }
-          ]
-        },
-        {
-          label: '一级 4'
-        }
-      ]
+      activeName: 'second'
     }
+  },
+  watch: {
+
   },
   computed: {
-    rightMenuObj () {
-      // 右键菜单对象，菜单内容和处理事件
-      const obj = {
-        this: this,
-        text: [
-          '查看资料',
-          // { content: '复制用户id', status: false },
-          '复制用户id',
-          '移除该会话',
-          '在联系人中查看',
-          '在单聊窗口中打开',
-          '会话置顶'
-        ],
-        handler: {
-          checkingData (parameter) {
-            console.log(parameter)
-            console.log('查看资料点击事件')
-          },
-          copyId (parameter) {
-            console.log('复制用户id点击事件', parameter)
-          },
-          // copyId2 (parameter) {
-          //   console.log('2复制用户id点击事件', parameter)
-          // },
-          removeItem () {
-            console.log('移除会话点击事件')
-          },
-          showContact () {
-            console.log('在联系人中查看')
-          },
-          showSingleChat () {
-            console.log('在单聊窗口中打开')
-          },
-          topConversation () {
-            console.log('会话置顶')
-          }
-        }
-      }
-      return obj
-    }
+
+  },
+  mounted () {
+
+  },
+  beforeDestroy () {
+
   },
   methods: {
-    // 鼠标右键
-    rightEvent (friend) {
-      console.log('点击右键')
-      this.$message({
-        message: '恭喜你，这是一条点击右键',
-        type: 'success'
-      })
-    },
-    dbClickEvent () {
-      this.$message({
-        message: '恭喜你，这是一条dbClickEvent',
-        type: 'success'
-      })
-    },
-    showInfo (node, data) {
-      console.log('node结果😀😀😀===>', node)
-      console.log('data结果😀😀😀===>', data)
+    switchActive () {
+      this.activeName = 'first'
     }
   }
 }
 </script>
-
-<style scoped lang="scss">
-.ov-container {
-  height: calc(100vh - 80px);
-  background: #ffffff;
-  border-radius: 5px;
-  margin: 10px;
+<style scoped lang="less">
+.app-container {
+  display: flex;
+  position: relative;
+  z-index: 9999;
+  .tree-container {
+    position: relative;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+  }
+  .mind-container {
+    // position: relative;
+    // flex: 1;
+    // z-index: 1;
+    // overflow: hidden;
+  }
 }
-
-.province {
-  background: url("https://lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web/img/default.640d9a7.png");
-  width: 17px;
-  height: 14px;
-  display: inline-block;
-  background-size: 100% 100%;
+.tree-flex {
+  display: flex;
+  // overflow: auto;
+  // width: 300px;
 }
+.tree-container {
+  // min-width: 300px;
+  text-align: left;
+  .header {
+    display: flex;
+  }
+  .tree-box {
+    position: relative;
+    height: 100%;
+    .tree-nav {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #e6e6e6;
+      padding: 12px 0;
+      .item {
+        font-size: 14px;
+        color: #666;
+        text-align: center;
+        .checkbox-style {
+          &.el-checkbox:last-of-type {
+            margin-right: 12px;
+            margin-left: 8px;
+          }
+        }
+        &:nth-child(1) {
+          flex: 1;
+          text-align: left;
+          padding-left: 16px;
+        }
+        &:nth-child(2),
+        &:nth-child(5),
+        &:nth-child(6) {
+          flex: 0 0 100px;
+        }
+        &:nth-child(3),
+        &:nth-child(4),
+        &:nth-child(7) {
+          flex: 0 0 200px;
+        }
+      }
+    }
+    .tree-content {
+      .custom-tree-node {
+        width: 100%;
+        font-size: 14px;
+        padding: 18px 0;
 
-.city {
-  background: url("https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg")
-    no-repeat;
-  width: 17px;
-  height: 14px;
-  display: inline-block;
-  background-size: 100% 100%;
+        .node_div {
+          display: flex;
+          align-items: center;
+          span {
+            text-align: center;
+            &.name-box {
+              flex: 1;
+              text-align: left;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+          }
+          .size-box,
+          .secret-box,
+          .download-box {
+            flex: 0 0 100px;
+          }
+          .time-box,
+          .upload-box,
+          .operate-box {
+            flex: 0 0 200px;
+          }
+        }
+        .code-time {
+          justify-content: space-between;
+          font-size: 12px;
+          color: #000;
+          padding: 5px 0;
+        }
+      }
+    }
+  }
+  .tree-child {
+  }
 }
-
-.line {
-  background: url("https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg")
-    no-repeat;
-  background-size: 100%;
-
-  width: 17px;
-  height: 14px;
-  display: inline-block;
+</style>
+<style lang="less">
+.el-tree-node__content {
+  // padding: 18px 0;
+  height: auto;
 }
-
-.data {
-  background: url("https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg")
-    no-repeat;
-  background-size: 100%;
-
-  width: 17px;
-  height: 14px;
-  display: inline-block;
+.el-button--small {
+  font-size: 14px;
 }
-
-.el-tree ::v-deep .el-tree-node__expand-icon.expanded {
-  -webkit-transform: rotate(0deg);
-  transform: rotate(0deg);
-}
-//有子节点 且未展开
-.el-tree ::v-deep .el-icon-caret-right:before {
-  //   background: url("../../assets/logo.png") no-repeat 0 0;
-  content: "√";
-  display: block;
-  width: 12px;
-  height: 12px;
-  font-size: 16px;
-  background-size: 100% 100%;
-}
-//有子节点 且已展开
-.el-tree
-  ::v-deep
-  .el-tree-node__expand-icon.expanded.el-icon-caret-right:before {
-  //   background: url("../../assets/logo.png") no-repeat 0 0;
-  content: "x";
-  display: block;
-  width: 12px;
-  height: 12px;
-  font-size: 12px;
-  background-size: 100% 100%;
-}
-//没有子节点
-.el-tree ::v-deep .el-tree-node__expand-icon.is-leaf::before {
-  //    background: url("../../assets/logo.png") no-repeat 0 0;
-  content: "";
-  display: block;
-  width: 12px;
-  height: 12px;
-  font-size: 16px;
-  background-size: 100% 100%;
+.tree-container {
+  .is-current {
+    background-color: #f5f7fa;
+  }
+  .el-checkbox {
+    display: none;
+  }
 }
 </style>

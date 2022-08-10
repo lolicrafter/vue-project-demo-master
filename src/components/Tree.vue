@@ -1,9 +1,3 @@
-<!--
-  描述: el-tree目录树二次开发
-  作者: Jack Chen @懒人码农
-  日期: 2021-09-05
--->
-
 <template>
   <div class="app-container">
     <div class="tree-container">
@@ -59,7 +53,7 @@
         <div class="total-num" v-if="false">共 {{ totalNum }} 个文件</div>
       </div>
       <div class="tree-flex">
-        <el-table :data="treeData" border style="width: 99.9%;" :fit="true" >
+        <el-table :data="treeData" border style="width: 99.9%" :fit="true">
           <el-table-column label="文件目录">
             <!-- eslint-disable-next-line vue/no-unused-vars -->
             <template slot-scope="{ row }">
@@ -165,7 +159,12 @@
             </template>
           </el-table-column>
         </el-table>
-        <el-table :data="treeChildArray" border style="width: 100%;" v-if="treeChildArray.length>0">
+        <el-table
+          :data="treeChildArray"
+          border
+          style="width: 100%"
+          v-if="treeChildArray.length > 0"
+        >
           <el-table-column label="文件目录2">
             <!-- eslint-disable-next-line vue/no-unused-vars -->
             <template slot-scope="{ row }">
@@ -181,8 +180,7 @@
                     :show-checkbox="true"
                     :default-expand-all="false"
                     @node-click="handleNodeClickChildTree"
-                    @check="handleCheckChange"
-                    @check-change="handleCurChange"
+                    @check-change="handleCurChangeChild"
                     :filter-node-method="filterNode"
                   >
                     <div
@@ -273,29 +271,16 @@
         </el-table>
       </div>
     </div>
-
-        <!-- <div class="tree-child" v-if="treeChildArray.length > 0">
-          <tree-child
-            :treeData="treeChildArray"
-            @handleNodeClick="handleNodeClick"
-          ></tree-child>
-        </div> -->
-      <!-- </div> -->
-    <!-- </div> -->
-    <div class="mind-container">
-      <mind-map v-if="true" />
-    </div>
-    <!-- <el-checkbox-group v-model="checkboxGroup1">
-      <el-checkbox-button v-for="city in cityOptions" :label="city" :key="city.name" :bgColor="city.color">{{city.name}}</el-checkbox-button>
-    </el-checkbox-group> -->
   </div>
 </template>
 <script>
-import mindMap from '@/views/mind'
-// import treeChild from './treeChild'
-// import table from 'element-ui/packages/table'
 
 export default {
+  props: {
+    activeName: {
+      type: String
+    }
+  },
   name: 'Tree',
   filters: {
     timerFilter (v) {
@@ -314,7 +299,6 @@ export default {
     }
   },
   components: {
-    mindMap
     // 'el-table': table
     // treeChild
     // 'el-checkbox-button': elCheckboxButton
@@ -345,137 +329,144 @@ export default {
         label: 'name',
         isLeaf: 'leaf'
       },
-      treeData: [[
-        // 初始化目录树数据
-        {
-          directoryId: 1,
-          level: 1,
-          directoryType: 2, // 1:目录 2:文件
-          downloadType: 1,
-          secretType: 0,
-          size: 12367,
-          name: '前端大厂面试宝典.pdf',
-          gmtUpdate: 1630825270483,
-          gmtUpload: 1630825248029,
-          children: []
-        },
-        {
-          directoryId: 2,
-          directoryType: 2,
-          downloadType: 1,
-          secretType: 1,
-          size: 5236700,
-          level: 1,
-          name: '前端高级工程师内功秘籍.docx',
-          gmtUpdate: 1630825270483,
-          gmtUpload: 1630825248029,
-          children: []
-        },
-        {
-          directoryId: 3,
-          directoryType: 2,
-          downloadType: 0,
-          secretType: 1,
-          size: 2267,
-          level: 1,
-          name: '前端学习路线图.png',
-          gmtUpdate: 1630834889072,
-          gmtUpload: 1630825248029,
-          children: []
-        },
-        {
-          directoryId: 4,
-          directoryType: 1,
-          downloadType: 1,
-          secretType: 0,
-          name: '前端开源项目汇总',
-          level: 1,
-          gmtUpdate: 1630825270483,
-          gmtUpload: 1630825248029,
-          children: [
-            {
-              pid: 4,
-              directoryId: 41,
-              directoryType: 2,
-              downloadType: 1,
-              secretType: 0,
-              size: 13200,
-              level: 2,
-              name: '小程序个性简历源码.zip',
-              gmtUpdate: 1630825270483,
-              gmtUpload: 1630825248029,
-              children: []
-            },
-            {
-              pid: 4,
-              directoryId: 42,
-              directoryType: 1,
-              downloadType: 1,
-              secretType: 0,
-              name: '电商网站项目',
-              level: 2,
-              gmtUpdate: 1630825270483,
-              gmtUpload: 1630825248029,
-              children: [
-                {
-                  pid: 42,
-                  directoryId: 421,
-                  directoryType: 2,
-                  downloadType: 1,
-                  secretType: 0,
-                  size: 132008,
-                  level: 3,
-                  name: '饿了么H5移动端源码.zip',
-                  gmtUpdate: 1630825270483,
-                  gmtUpload: 1630825248029,
-                  children: []
-                }
-              ]
-            }
-          ]
-        },
-        {
-          directoryId: 5,
-          directoryType: 1,
-          downloadType: 0,
-          secretType: 1,
-          level: 1,
-          name: '前端工程化知识体系',
-          gmtUpdate: 1630834889072,
-          gmtUpload: 1630834889072,
-          children: [
-            {
-              pid: 5,
-              directoryId: 51,
-              directoryType: 2,
-              downloadType: 0,
-              secretType: 1,
-              size: 13200,
-              level: 2,
-              name: 'CI/CD项目部署.doc',
-              gmtUpdate: 1630834889072,
-              gmtUpload: 1630834889072,
-              children: []
-            },
-            {
-              pid: 5,
-              directoryId: 52,
-              directoryType: 2,
-              downloadType: 0,
-              secretType: 1,
-              size: 335200,
-              level: 2,
-              name: '前端开发规范秘籍.xlsx',
-              gmtUpdate: 1630834889072,
-              gmtUpload: 1630834889072,
-              children: []
-            }
-          ]
-        }
-      ]]
+      treeData: [
+        [
+          // 初始化目录树数据
+          {
+            directoryId: 1,
+            level: 1,
+            directoryType: 2, // 1:目录 2:文件
+            downloadType: 1,
+            secretType: 0,
+            size: 12367,
+            name: '前端大厂面试宝典.pdf',
+            gmtUpdate: 1630825270483,
+            gmtUpload: 1630825248029,
+            children: []
+          },
+          {
+            directoryId: 2,
+            directoryType: 2,
+            downloadType: 1,
+            secretType: 1,
+            size: 5236700,
+            level: 1,
+            name: '前端高级工程师内功秘籍.docx',
+            gmtUpdate: 1630825270483,
+            gmtUpload: 1630825248029,
+            children: []
+          },
+          {
+            directoryId: 3,
+            directoryType: 2,
+            downloadType: 0,
+            secretType: 1,
+            size: 2267,
+            level: 1,
+            name: '前端学习路线图.png',
+            gmtUpdate: 1630834889072,
+            gmtUpload: 1630825248029,
+            children: []
+          },
+          {
+            directoryId: 4,
+            directoryType: 1,
+            downloadType: 1,
+            secretType: 0,
+            name: '前端开源项目汇总',
+            level: 1,
+            gmtUpdate: 1630825270483,
+            gmtUpload: 1630825248029,
+            children: [
+              {
+                pid: 4,
+                directoryId: 41,
+                directoryType: 2,
+                downloadType: 1,
+                secretType: 0,
+                size: 13200,
+                level: 2,
+                name: '小程序个性简历源码.zip',
+                gmtUpdate: 1630825270483,
+                gmtUpload: 1630825248029,
+                children: []
+              },
+              {
+                pid: 4,
+                directoryId: 42,
+                directoryType: 1,
+                downloadType: 1,
+                secretType: 0,
+                name: '电商网站项目',
+                level: 2,
+                gmtUpdate: 1630825270483,
+                gmtUpload: 1630825248029,
+                children: [
+                  {
+                    pid: 42,
+                    directoryId: 421,
+                    directoryType: 2,
+                    downloadType: 1,
+                    secretType: 0,
+                    size: 132008,
+                    level: 3,
+                    name: '饿了么H5移动端源码.zip',
+                    gmtUpdate: 1630825270483,
+                    gmtUpload: 1630825248029,
+                    children: []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            directoryId: 5,
+            directoryType: 1,
+            downloadType: 0,
+            secretType: 1,
+            level: 1,
+            name: '前端工程化知识体系',
+            gmtUpdate: 1630834889072,
+            gmtUpload: 1630834889072,
+            children: [
+              {
+                pid: 5,
+                directoryId: 51,
+                directoryType: 2,
+                downloadType: 0,
+                secretType: 1,
+                size: 13200,
+                level: 2,
+                name: 'CI/CD项目部署.doc',
+                gmtUpdate: 1630834889072,
+                gmtUpload: 1630834889072,
+                children: []
+              },
+              {
+                pid: 5,
+                directoryId: 52,
+                directoryType: 2,
+                downloadType: 0,
+                secretType: 1,
+                size: 335200,
+                level: 2,
+                name: '前端开发规范秘籍.xlsx',
+                gmtUpdate: 1630834889072,
+                gmtUpload: 1630834889072,
+                children: []
+              }
+            ]
+          }
+        ]
+      ]
     }
   },
   watch: {
+    activeName () {
+      console.log('结果😀😀😀===>', this.activeName)
+      this.$bus.$off('handleNodeClick', this.handleNodeClick)
+      this.$bus.$on('handleNodeClick', this.handleNodeClick)
+    },
     filterText (val) {
       this.$nextTick(() => {
         this.$refs.tree.filter(val)
@@ -539,10 +530,16 @@ export default {
     }
   },
   mounted () {
+    this.$bus.$on('handleNodeClick', this.handleNodeClick)
     // this.getTotalNum(this.treeData)
+  },
+  beforeDestroy () {
+    console.log('beforeDestroy结果😀😀😀===>')
+    this.$bus.$off('handleNodeClick', this.handleNodeClick)
   },
   methods: {
     getNodeChild (treeData, directoryId, isChild) {
+      // console.log('getNodeChild获取子节点结果😀😀😀===>')
       let node = {
         children: []
       }
@@ -560,8 +557,10 @@ export default {
           this.getNodeChild(item.children, directoryId)
         }
       })
+      // console.log('获取子节点node结果😀😀😀===>', node)
+
       if (Object.keys(node).length > 0 && node.children.length > 0) {
-        console.log('node结果😀😀😀===>', node)
+        // console.log('node结果😀😀😀===>', node)
         // this.treeData.push([node])
         this.treeChildArray = [node.children]
       }
@@ -571,29 +570,27 @@ export default {
       this.$forceUpdate()
     },
     handleNodeClickTree (a) {
-      console.log('a结果😀😀😀===>', a)
-      // this.handleNodeClick(a.directoryId)
+      console.log('handleNodeClickTree结果😀😀😀===>', a)
       this.getNodeChild(this.treeData[0], a.directoryId, false)
-      // console.log('b结果😀😀😀===>', b)
-      // console.log('c结果😀😀😀===>', c)
     },
     handleNodeClickChildTree (a) {
-      console.log('a结果😀😀😀===>', a)
-      this.handleNodeClick(a.directoryId)
-      // this.getNodeChild(this.treeData[0], a.directoryId, true)
-      // console.log('b结果😀😀😀===>', b)
-      // console.log('c结果😀😀😀===>', c)
+      console.log('handleNodeClickChildTree结果😀😀😀===>', a)
+      // this.handleNodeClick(a.directoryId)
     },
     // 脑图点击联动目录树
     handleNodeClick (id) {
       // this.$bus.$emit('export', 'json', true, '思维导图')
       console.log('handleNodeClick结果😀😀😀===>', id)
+      this.$emit('switchActive')
       this.$nextTick(() => {
         //   节点的id 传进来
         // this.$refs.tree.setCurrentKey([id])
         this.$refs.tree.setCheckedKeys([id])
         // this.$refs.tree.store.nodesMap[id].expanded = true
-        this.getNodes()
+        this.handleNodeClickTree({ directoryId: id })
+        this.$nextTick(() => {
+          this.getNodes()
+        })
       })
     },
     // 根据关键词获取id
@@ -732,6 +729,21 @@ export default {
     },
     // 节点选中状态发生变化时的回调
     async handleCurChange (data, checked, indeterminate) {
+      // console.log(data, checked, indeterminate)
+      if (!checked) {
+        if (indeterminate) {
+          data.isChecked = true
+        } else {
+          data.isChecked = false
+          // console.log(checked)
+          await this.findParent(data, this.treeData, checked)
+        }
+        // data.isChecked = false;
+      } else {
+        await this.findParent(data, this.treeData, checked)
+      }
+    },
+    async handleCurChangeChild (data, checked, indeterminate) {
       console.log(data, checked, indeterminate)
       if (!checked) {
         if (indeterminate) {
@@ -739,11 +751,11 @@ export default {
         } else {
           data.isChecked = false
           console.log(checked)
-          await this.findParent(data, this.treeData, checked)
+          await this.findParent(data, this.treeChildArray, checked)
         }
         // data.isChecked = false;
       } else {
-        await this.findParent(data, this.treeData, checked)
+        await this.findParent(data, this.treeChildArray, checked)
       }
     },
 
@@ -766,11 +778,15 @@ export default {
       for (let i = 0; i < treeData.length; i++) {
         // 父节点查询条件
         if (treeData[i].directoryId === childNode.pid) {
-          console.log(treeData[i])
+          // console.log(treeData[i])
           // 同级子节点是否有一条被选中
-          const isBoolean = treeData[i].children.some((item) => {
-            return item.isChecked === true
-          })
+          let isBoolean = false
+          // console.log('treeData[i].children结果😀😀😀===>', treeData[i].children)
+          if (treeData[i].children && treeData[i].children.length > 0) {
+            isBoolean = treeData[i].children.some((item) => {
+              return item.isChecked === true
+            })
+          }
           treeData[i].isChecked = isBoolean
           console.log('isBoolean===', isBoolean)
           // 如果找到结果,保存当前节点
@@ -863,17 +879,13 @@ export default {
 <style scoped lang="less">
 .app-container {
   display: flex;
+  position: relative;
+  z-index: 9999;
   .tree-container {
     position: relative;
     z-index: 9999;
     top: 0;
     left: 0;
-  }
-  .mind-container {
-    // position: relative;
-    // flex: 1;
-    // z-index: 1;
-    // overflow: hidden;
   }
 }
 .tree-flex {
@@ -967,9 +979,12 @@ export default {
 }
 </style>
 <style lang="less">
+.el-tree-node{
+  // padding: 18px 0;
+}
 .el-tree-node__content {
   // padding: 18px 0;
-  height: auto;
+  height: auto !important;
 }
 .el-button--small {
   font-size: 14px;

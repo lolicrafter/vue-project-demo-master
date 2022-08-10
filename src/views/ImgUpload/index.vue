@@ -30,21 +30,21 @@
 
 <script>
 export default {
-  name: "ImgUpload",
+  name: 'ImgUpload',
   model: {
-    prop: "value",
-    event: "change",
+    prop: 'value',
+    event: 'change'
   },
   props: {
     value: {
       type: String,
-      default: "",
-    },
+      default: ''
+    }
   },
-  data() {
+  data () {
     return {
-      file: null,
-    };
+      file: null
+    }
   },
   methods: {
     /**
@@ -52,9 +52,9 @@ export default {
      * @Date: 2019-12-22 19:47:19
      * @Desc: 图片选择事件
      */
-    onImgUploadInputChange(e) {
-      let file = e.target.files[0];
-      this.selectImg(file);
+    onImgUploadInputChange (e) {
+      const file = e.target.files[0]
+      this.selectImg(file)
     },
 
     /**
@@ -62,10 +62,10 @@ export default {
      * @Date: 2019-12-22 20:32:31
      * @Desc: 拖动上传图片
      */
-    onDrop(e) {
-      let dt = e.dataTransfer;
-      let file = dt.files && dt.files[0];
-      this.selectImg(file);
+    onDrop (e) {
+      const dt = e.dataTransfer
+      const file = dt.files && dt.files[0]
+      this.selectImg(file)
     },
 
     /**
@@ -73,13 +73,13 @@ export default {
      * @Date: 2021-06-06 16:56:14
      * @Desc: 选择图片
      */
-    selectImg(file) {
-      this.file = file;
-      let fr = new FileReader();
-      fr.readAsDataURL(file);
+    selectImg (file) {
+      this.file = file
+      const fr = new FileReader()
+      fr.readAsDataURL(file)
       fr.onload = (e) => {
-        this.$emit("change", e.target.result);
-      };
+        this.$emit('change', e.target.result)
+      }
     },
 
     /**
@@ -87,23 +87,23 @@ export default {
      * @Date: 2021-06-22 23:03:46
      * @Desc: 获取图片大小
      */
-    getSize() {
+    getSize () {
       return new Promise((resolve, reject) => {
-        let img = new Image();
-        img.src = this.value;
+        const img = new Image()
+        img.src = this.value
         img.onload = () => {
           resolve({
             width: img.width,
-            height: img.height,
-          });
-        };
+            height: img.height
+          })
+        }
         img.onerror = (e) => {
           resolve({
             width: 0,
-            height: 0,
-          });
-        };
-      });
+            height: 0
+          })
+        }
+      })
     },
 
     /**
@@ -111,12 +111,12 @@ export default {
      * @Date: 2021-06-06 21:59:57
      * @Desc: 删除图片
      */
-    deleteImg() {
-      this.$emit("change", "");
-      this.file = null;
-    },
-  },
-};
+    deleteImg () {
+      this.$emit('change', '')
+      this.file = null
+    }
+  }
+}
 </script>
 
 <style lang="less" scoped>

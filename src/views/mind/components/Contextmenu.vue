@@ -7,6 +7,13 @@
     <template v-if="type === 'node'">
       <div
         class="item"
+        @click="getNode()"
+        :class="{ disabled: insertNodeBtnDisabled }"
+      >
+        获取节点
+      </div>
+      <div
+        class="item"
         @click="exec('INSERT_NODE', insertNodeBtnDisabled)"
         :class="{ disabled: insertNodeBtnDisabled }"
       >
@@ -116,6 +123,9 @@ export default {
     this.$bus.$on('mouseup', this.onMouseup)
   },
   methods: {
+    getNode () {
+      console.log('获取节点结果😀😀😀===>', JSON.stringify(this.node.nodeData.data))
+    },
     /**
      * @Author: 王林
      * @Date: 2021-07-14 21:38:50

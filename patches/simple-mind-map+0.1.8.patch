@@ -1,8 +1,8 @@
 diff --git a/node_modules/simple-mind-map/example/exampleData.js b/node_modules/simple-mind-map/example/exampleData.js
-index f0fab06..7ce9ce9 100644
+index f0fab06..d89b925 100644
 --- a/node_modules/simple-mind-map/example/exampleData.js
 +++ b/node_modules/simple-mind-map/example/exampleData.js
-@@ -872,12 +872,165 @@ const rootData = {
+@@ -872,15 +872,223 @@ const rootData = {
          "children": []
      }
  }
@@ -12,6 +12,7 @@ index f0fab06..7ce9ce9 100644
 +        'children': [
 +            {
 +                "directoryId": 1,
++                "level": 1,
 +                "directoryType": 2,
 +                "downloadType": 1,
 +                "secretType": 0,
@@ -21,35 +22,16 @@ index f0fab06..7ce9ce9 100644
 +                "gmtUpload": 1630825248029,
 +                "children": [],
 +                "data": {
++                    "directoryId": 1,
++                    "level": 1,
++                    "directoryType": 2,
++                    "downloadType": 1,
++                    "secretType": 0,
++                    "size": 12367,
++                    "name": "前端大厂面试宝典.pdf",
++                    "gmtUpdate": 1630825270483,
++                    "gmtUpload": 1630825248029,
 +                    "text": "前端大厂面试宝典.pdf"
-+                }
-+            },
-+            {
-+                "directoryId": 2,
-+                "directoryType": 2,
-+                "downloadType": 1,
-+                "secretType": 1,
-+                "size": 5236700,
-+                "name": "前端高级工程师内功秘籍.docx",
-+                "gmtUpdate": 1630825270483,
-+                "gmtUpload": 1630825248029,
-+                "children": [],
-+                "data": {
-+                    "text": "前端高级工程师内功秘籍.docx"
-+                }
-+            },
-+            {
-+                "directoryId": 3,
-+                "directoryType": 2,
-+                "downloadType": 0,
-+                "secretType": 1,
-+                "size": 2267,
-+                "name": "前端学习路线图.png",
-+                "gmtUpdate": 1630834889072,
-+                "gmtUpload": 1630825248029,
-+                "children": [],
-+                "data": {
-+                    "text": "前端学习路线图.png"
 +                }
 +            },
 +            {
@@ -58,6 +40,7 @@ index f0fab06..7ce9ce9 100644
 +                "downloadType": 1,
 +                "secretType": 0,
 +                "name": "前端开源项目汇总",
++                "level": 1,
 +                "gmtUpdate": 1630825270483,
 +                "gmtUpload": 1630825248029,
 +                "children": [
@@ -68,11 +51,22 @@ index f0fab06..7ce9ce9 100644
 +                        "downloadType": 1,
 +                        "secretType": 0,
 +                        "size": 13200,
++                        "level": 2,
 +                        "name": "小程序个性简历源码.zip",
 +                        "gmtUpdate": 1630825270483,
 +                        "gmtUpload": 1630825248029,
 +                        "children": [],
 +                        "data": {
++                            "pid": 4,
++                            "directoryId": 41,
++                            "directoryType": 2,
++                            "downloadType": 1,
++                            "secretType": 0,
++                            "size": 13200,
++                            "level": 2,
++                            "name": "小程序个性简历源码.zip",
++                            "gmtUpdate": 1630825270483,
++                            "gmtUpload": 1630825248029,
 +                            "text": "小程序个性简历源码.zip"
 +                        }
 +                    },
@@ -83,6 +77,7 @@ index f0fab06..7ce9ce9 100644
 +                        "downloadType": 1,
 +                        "secretType": 0,
 +                        "name": "电商网站项目",
++                        "level": 2,
 +                        "gmtUpdate": 1630825270483,
 +                        "gmtUpload": 1630825248029,
 +                        "children": [
@@ -93,21 +88,49 @@ index f0fab06..7ce9ce9 100644
 +                                "downloadType": 1,
 +                                "secretType": 0,
 +                                "size": 132008,
++                                "level": 3,
 +                                "name": "饿了么H5移动端源码.zip",
 +                                "gmtUpdate": 1630825270483,
 +                                "gmtUpload": 1630825248029,
 +                                "children": [],
 +                                "data": {
++                                    "pid": 42,
++                                    "directoryId": 421,
++                                    "directoryType": 2,
++                                    "downloadType": 1,
++                                    "secretType": 0,
++                                    "size": 132008,
++                                    "level": 3,
++                                    "name": "饿了么H5移动端源码.zip",
++                                    "gmtUpdate": 1630825270483,
++                                    "gmtUpload": 1630825248029,
 +                                    "text": "饿了么H5移动端源码.zip"
 +                                }
 +                            }
 +                        ],
 +                        "data": {
++                            "pid": 4,
++                            "directoryId": 42,
++                            "directoryType": 1,
++                            "downloadType": 1,
++                            "secretType": 0,
++                            "name": "电商网站项目",
++                            "level": 2,
++                            "gmtUpdate": 1630825270483,
++                            "gmtUpload": 1630825248029,
 +                            "text": "电商网站项目"
 +                        }
 +                    }
 +                ],
 +                "data": {
++                    "directoryId": 4,
++                    "directoryType": 1,
++                    "downloadType": 1,
++                    "secretType": 0,
++                    "name": "前端开源项目汇总",
++                    "level": 1,
++                    "gmtUpdate": 1630825270483,
++                    "gmtUpload": 1630825248029,
 +                    "text": "前端开源项目汇总"
 +                }
 +            },
@@ -116,6 +139,7 @@ index f0fab06..7ce9ce9 100644
 +                "directoryType": 1,
 +                "downloadType": 0,
 +                "secretType": 1,
++                "level": 1,
 +                "name": "前端工程化知识体系",
 +                "gmtUpdate": 1630834889072,
 +                "gmtUpload": 1630834889072,
@@ -127,11 +151,22 @@ index f0fab06..7ce9ce9 100644
 +                        "downloadType": 0,
 +                        "secretType": 1,
 +                        "size": 13200,
++                        "level": 2,
 +                        "name": "CI/CD项目部署.doc",
 +                        "gmtUpdate": 1630834889072,
 +                        "gmtUpload": 1630834889072,
 +                        "children": [],
 +                        "data": {
++                            "pid": 5,
++                            "directoryId": 51,
++                            "directoryType": 2,
++                            "downloadType": 0,
++                            "secretType": 1,
++                            "size": 13200,
++                            "level": 2,
++                            "name": "CI/CD项目部署.doc",
++                            "gmtUpdate": 1630834889072,
++                            "gmtUpload": 1630834889072,
 +                            "text": "CI/CD项目部署.doc"
 +                        }
 +                    },
@@ -142,20 +177,40 @@ index f0fab06..7ce9ce9 100644
 +                        "downloadType": 0,
 +                        "secretType": 1,
 +                        "size": 335200,
++                        "level": 2,
 +                        "name": "前端开发规范秘籍.xlsx",
 +                        "gmtUpdate": 1630834889072,
 +                        "gmtUpload": 1630834889072,
 +                        "children": [],
 +                        "data": {
++                            "pid": 5,
++                            "directoryId": 52,
++                            "directoryType": 2,
++                            "downloadType": 0,
++                            "secretType": 1,
++                            "size": 335200,
++                            "level": 2,
++                            "name": "前端开发规范秘籍.xlsx",
++                            "gmtUpdate": 1630834889072,
++                            "gmtUpload": 1630834889072,
 +                            "text": "前端开发规范秘籍.xlsx"
 +                        }
 +                    }
 +                ],
 +                "data": {
++                    "directoryId": 5,
++                    "directoryType": 1,
++                    "downloadType": 0,
++                    "secretType": 1,
++                    "level": 1,
++                    "name": "前端工程化知识体系",
++                    "gmtUpdate": 1630834889072,
++                    "gmtUpload": 1630834889072,
 +                    "text": "前端工程化知识体系"
 +                }
 +            }
 +        ]
++          
 +    }
 +}
  
@@ -168,7 +223,242 @@ index f0fab06..7ce9ce9 100644
 +    ...mindData1,
      // ...rootData,
      "theme": {
-         "template": "minions",
+-        "template": "minions",
++        "template": "romanticPurple",
+         "config": {
+             // 自定义配置...
+         }
+diff --git a/node_modules/simple-mind-map/index.js b/node_modules/simple-mind-map/index.js
+index f1a3bdc..34553df 100644
+--- a/node_modules/simple-mind-map/index.js
++++ b/node_modules/simple-mind-map/index.js
+@@ -24,7 +24,7 @@ const defaultOpt = {
+     // 布局
+     layout: 'logicalStructure',
+     // 主题
+-    theme: 'default', // 内置主题：default（默认主题）
++    theme: 'romanticPurple', // 内置主题：default（默认主题）
+     // 主题配置，会和所选择的主题进行合并
+     themeConfig: {},
+     // 放大缩小的增量比例
+@@ -150,7 +150,7 @@ class MindMap {
+             opt.layout = 'logicalStructure'
+         }
+         // 检查主题配置
+-        opt.theme = opt.theme && theme[opt.theme] ? opt.theme : 'default'
++        opt.theme = opt.theme && theme[opt.theme] ? opt.theme : 'romanticPurple'
+         return opt
+     }
+ 
+diff --git a/node_modules/simple-mind-map/src/Node.js b/node_modules/simple-mind-map/src/Node.js
+index 22c9da0..3a8f7e2 100644
+--- a/node_modules/simple-mind-map/src/Node.js
++++ b/node_modules/simple-mind-map/src/Node.js
+@@ -147,7 +147,8 @@ class Node {
+      * @Desc: 创建节点的各个内容对象数据
+      */
+     createNodeData() {
+-        this._imgData = this.createImgNode()
++        // this._imgData = this.createImgNode()
++        // this._imgData = this.createFolderImgNode()
+         this._iconData = this.createIconNode()
+         this._textData = this.createTextNode()
+         this._hyperlinkData = this.createHyperlinkNode()
+@@ -302,6 +303,23 @@ class Node {
+         }
+     }
+ 
++    createFolderImgNode() {
++        let img = 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
++        if (this.nodeData.data.directoryType===2) {
++            return
++        }
++        let imgSize = [10, 10]
++        let node = new Image().load(img).size(...imgSize)
++        if (this.nodeData.data.imageTitle) {
++            node.attr('title', this.nodeData.data.imageTitle)
++        }
++        return {
++            node,
++            width: imgSize[0],
++            height: imgSize[1]
++        }
++    }
++
+     /** 
+      * javascript comment 
+      * @Author: 王林25 
+@@ -320,11 +338,22 @@ class Node {
+      */
+     createIconNode() {
+         let _data = this.nodeData.data
+-        if (!_data.icon || _data.icon.length <= 0) {
+-            return []
++        // console.log('_data结果😀😀😀===>',_data)
++        // if (!_data.icon || _data.icon.length <= 0) {
++        //     return []
++        // }
++        if(_data.directoryType ===1 ){
++            _data.icon = ['sign_wx']
++        }else{
++            if(_data.text.includes('.zip')){
++                _data.icon = ['expression_wangwang']
++            }else{
++                return []
++            }
+         }
+         let iconSize = this.themeConfig.iconSize
+         return _data.icon.map((item) => {
++            // console.log('_data.icon结果😀😀😀===>',item)
+             return {
+                 node: SVG(iconsSvg.getNodeIconListIcon(item)).size(iconSize, iconSize),
+                 width: iconSize,
+@@ -332,6 +361,19 @@ class Node {
+             }
+         })
+     }
++    /**
++     * 获取宽度
++     */
++
++     getTextWidth(text, font) {
++        // re-use canvas object for better performance
++        var canvas = this.getTextWidth.canvas || (this.getTextWidth.canvas = document.createElement("canvas"));
++        var context = canvas.getContext("2d"); 
++        context.font = font;
++        var metrics = context.measureText(text);
++        return metrics.width;
++      }
++      
+ 
+     /** 
+      * javascript comment 
+@@ -340,14 +382,45 @@ class Node {
+      * @Desc: 创建文本节点 
+      */
+     createTextNode() {
++        console.log('this.nodeData.data结果😀😀😀===>',this.nodeData.data)
+         let g = new G()
+         let fontSize = this.getStyle('fontSize', this.isRoot, this.nodeData.data.isActive)
+         let lineHeight = this.getStyle('lineHeight', this.isRoot, this.nodeData.data.isActive)
+         this.nodeData.data.text.split(/\n/img).forEach((item, index) => {
+             let node = new Text().text(item)
++            // console.log('node style结果😀😀😀===>',node.node.style)
++            let widhtParams = ''
++            if(this.nodeData.data.level===1){
++                widhtParams = 'normal 15px 微软雅黑'
++            }
++            if(this.nodeData.data.level===2){
++                widhtParams = 'normal 13px 微软雅黑'
++            }
++            if(this.nodeData.data.level===3){
++                widhtParams = 'normal 13px 微软雅黑'
++            }
++            let nodeWidth = this.getTextWidth(item,widhtParams)    
++            console.log('nodeWidth结果😀😀😀===>',item,nodeWidth)
++            let numberNode = new Text().text('+ 15')
++            this.style.text(numberNode,'#f0f')
++            // console.log('numberNode结果😀😀😀===>',numberNode)
++            // console.log('node.nodeattributeStyleMapsize结果😀😀😀===>',node.nodeattributeStyleMap)
+             this.style.text(node)
+             node.y(fontSize * lineHeight * index)
++
++            numberNode.y(fontSize * lineHeight * (index))
++            // console.log('结果😀😀😀===>',node)
++            // console.log('结果😀😀😀===>',node.node.textContent,node.node.clientWidth)
++            // numberNode.x(fontSize * lineHeight *(node.node.attributeStyleMap['size']))
++            const iconWidth = this.nodeData.data.directoryType===1?20:0
++            numberNode.x(nodeWidth+iconWidth)
++            if(this.nodeData.data.directoryType===2){
++                g.add(numberNode)
++            }
+             g.add(node)
++            // g.node.outerHTML = g.node.innerHTML
++            // console.log('g结果😀😀😀===>',g)
++            // console.log('node结果😀😀😀===>',node)
+         })
+         let {
+             width,
+@@ -528,9 +601,22 @@ class Node {
+         // 文字
+         if (this._textData) {
+             this._textData.node.x(textContentOffsetX).y(0)
++            // console.log('this._textData.node结果😀😀😀===>',this._textData.node)
+             textContentNested.add(this._textData.node)
+             textContentOffsetX += this._textData.width + textContentItemMargin
+         }
++        // let _textNested = new G()
++        // if (this._textData) {
++        //     console.log('this._textData.node结果😀😀😀===>',this._textData.node)
++        //     let tagLeft = 0
++        //     this._textData.node.forEach((item) => {
++        //         item.node.x(textContentOffsetX + tagLeft).y((this._rectInfo.textContentHeight - item.height) / 2)
++        //         _textNested.add(item.node)
++        //         tagLeft += item.width + textContentItemMargin
++        //     })
++        //     textContentNested.add(_textNested)
++        //     textContentOffsetX += tagLeft
++        // }
+         // 超链接
+         if (this._hyperlinkData) {
+             this._hyperlinkData.node.x(textContentOffsetX).y((this._rectInfo.textContentHeight - this._hyperlinkData.height) / 2)
+@@ -792,8 +878,12 @@ class Node {
+      * @Desc: 创建或更新展开收缩按钮内容 
+      */
+     updateExpandBtnNode() {
++        // this.renderExpandBtn()
++        // console.log('创建或更新展开收缩按钮内容结果😀😀😀===>',this._expandBtn)
+         if (this._expandBtn) {
+             this._expandBtn.clear()
++        }else{
++            return
+         }
+         let iconSvg
+         if (this.nodeData.data.expand === false) {
+diff --git a/node_modules/simple-mind-map/src/Style.js b/node_modules/simple-mind-map/src/Style.js
+index 3d47b89..8ebdb08 100644
+--- a/node_modules/simple-mind-map/src/Style.js
++++ b/node_modules/simple-mind-map/src/Style.js
+@@ -48,6 +48,7 @@ class Style {
+     merge(prop, root, isActive) {
+         // 三级及以下节点
+         let defaultConfig = this.themeConfig.node
++        // console.log('defaultConfig结果😀😀😀===>',defaultConfig)
+         if (root || rootProp.includes(prop)) {// 直接使用最外层样式
+             defaultConfig = this.themeConfig
+         } else if (this.ctx.layerIndex === 0) {// 根节点
+@@ -87,15 +88,15 @@ class Style {
+      * @Date: 2021-04-11 12:07:59 
+      * @Desc: 文字 
+      */
+-    text(node) {
++    text(node,color) {
+         node.fill({
+-            color: this.merge('color')
++            color: color?color:this.merge('color')
+         }).css({
+             'font-family': this.merge('fontFamily'),
+             'font-size': this.merge('fontSize'),
+             'font-weight': this.merge('fontWeight'),
+             'font-style': this.merge('fontStyle'),
+-            'text-decoration': this.merge('textDecoration')
++            'text-decoration': this.merge('textDecoration'),
+         })
+     }
+ 
+diff --git a/node_modules/simple-mind-map/src/TextEdit.js b/node_modules/simple-mind-map/src/TextEdit.js
+index f7523eb..1161f49 100644
+--- a/node_modules/simple-mind-map/src/TextEdit.js
++++ b/node_modules/simple-mind-map/src/TextEdit.js
+@@ -33,7 +33,7 @@ export default class TextEdit {
+     bindEvent() {
+         this.show = this.show.bind(this)
+         // 节点双击事件
+-        this.mindMap.on('node_dblclick', this.show)
++        // this.mindMap.on('node_dblclick', this.show)
+         // 点击事件
+         this.mindMap.on('draw_click', () => {
+             // 隐藏文本编辑框
 diff --git a/node_modules/simple-mind-map/src/View.js b/node_modules/simple-mind-map/src/View.js
 index afb07a6..2730f52 100644
 --- a/node_modules/simple-mind-map/src/View.js
@@ -213,3 +503,99 @@ index 58d4520..7061198 100644
              {
                  name: '1',
                  icon: `<svg viewBox="0 0 1024 1024"><path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z" fill="#6D768D"></path><path d="M809.728 429.696a18.901333 18.901333 0 0 0-15.274667-12.885333l-183.466666-26.624-81.92-166.272a18.901333 18.901333 0 0 0-34.005334 0l-81.92 166.272-183.594666 26.624a19.029333 19.029333 0 0 0-10.496 32.298666l132.693333 129.536-31.274667 182.741334a18.816 18.816 0 0 0 27.477334 19.84l164.138666-86.186667 164.096 86.058667a18.773333 18.773333 0 1 0 27.434667-19.84l-31.36-182.741334 132.693333-129.408a18.901333 18.901333 0 0 0 4.778667-19.413333z" fill="#FFFFFF"></path></svg>`
+diff --git a/node_modules/simple-mind-map/src/themes/romanticPurple copy.js b/node_modules/simple-mind-map/src/themes/romanticPurple copy.js
+new file mode 100644
+index 0000000..4cde938
+--- /dev/null
++++ b/node_modules/simple-mind-map/src/themes/romanticPurple copy.js	
+@@ -0,0 +1,40 @@
++import defaultTheme from './default';
++import merge from 'deepmerge';
++
++/** 
++ * @Author: 王林 
++ * @Date: 2021-04-11 15:22:18 
++ * @Desc: 浪漫紫
++ */
++export default merge(defaultTheme, {
++    // 连线的颜色
++    lineColor: 'rgb(123, 115, 191)',
++    // 背景颜色
++    backgroundColor: 'rgb(251, 251, 251)',
++    // 根节点样式
++    root: {
++        fillColor: 'rgb(123, 115, 191)',
++        active: {
++            borderColor: 'rgb(61, 57, 96)'
++        }
++    },
++    // 二级节点样式
++    second: {
++        fillColor: 'rgb(239, 238, 246)',
++        color: '#333',
++        borderColor: 'rgb(123, 115, 191)',
++        borderWidth: 1,
++        fontSize: 14,
++        active: {
++            borderColor: 'rgb(61, 57, 96)'
++        }
++    },
++    // 三级及以下节点样式
++    node: {
++        fontSize: 12,
++        color: '#333',
++        active: {
++            borderColor: 'rgb(61, 57, 96)'
++        }
++    }
++})
+\ No newline at end of file
+diff --git a/node_modules/simple-mind-map/src/themes/romanticPurple.js b/node_modules/simple-mind-map/src/themes/romanticPurple.js
+index 4cde938..2e66c02 100644
+--- a/node_modules/simple-mind-map/src/themes/romanticPurple.js
++++ b/node_modules/simple-mind-map/src/themes/romanticPurple.js
+@@ -10,23 +10,27 @@ export default merge(defaultTheme, {
+     // 连线的颜色
+     lineColor: 'rgb(123, 115, 191)',
+     // 背景颜色
+-    backgroundColor: 'rgb(251, 251, 251)',
++    backgroundColor: 'rgb(255, 255, 255)',
+     // 根节点样式
+     root: {
+         fillColor: 'rgb(123, 115, 191)',
+         active: {
+-            borderColor: 'rgb(61, 57, 96)'
++            // borderColor: 'rgb(61, 57, 96)'
++            borderColor: 'transparent',
++            
+         }
+     },
+     // 二级节点样式
+     second: {
+-        fillColor: 'rgb(239, 238, 246)',
++        fillColor: 'transparent',
+         color: '#333',
+-        borderColor: 'rgb(123, 115, 191)',
++        borderColor: 'rgb(255, 255, 255)',
+         borderWidth: 1,
+         fontSize: 14,
+         active: {
+-            borderColor: 'rgb(61, 57, 96)'
++            fillColor: 'rgb(123, 115, 191)',
++            // borderColor: 'rgb(61, 57, 96)'
++            borderColor: 'transparent',
+         }
+     },
+     // 三级及以下节点样式
+@@ -34,7 +38,9 @@ export default merge(defaultTheme, {
+         fontSize: 12,
+         color: '#333',
+         active: {
+-            borderColor: 'rgb(61, 57, 96)'
++            fillColor: 'rgb(123, 115, 191)',
++            // borderColor: 'rgb(61, 57, 96)'
++            borderColor: 'transparent',
+         }
+     }
+ })
+\ No newline at end of file

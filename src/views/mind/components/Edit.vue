@@ -1,21 +1,22 @@
 <template>
   <div class="editContainer">
     <div class="mindMapContainer" ref="mindMapContainer"></div>
-    <Count></Count>
-    <NavigatorToolbar :mindMap="mindMap"></NavigatorToolbar>
-    <Outline></Outline>
-    <Style></Style>
-    <BaseStyle :data="mindMapData" :mindMap="mindMap"></BaseStyle>
-    <Theme :mindMap="mindMap"></Theme>
-    <Structure :mindMap="mindMap"></Structure>
-    <ShortcutKey></ShortcutKey>
+    <!-- <Count></Count> -->
+    <!-- <NavigatorToolbar :mindMap="mindMap"></NavigatorToolbar> -->
+     <!-- <Outline></Outline> -->
+    <!-- <Style></Style> -->
+    <!-- <BaseStyle :data="mindMapData" :mindMap="mindMap"></BaseStyle> -->
+    <!-- <Theme :mindMap="mindMap"></Theme> -->
+    <!-- <Structure :mindMap="mindMap"></Structure> -->
+    <!-- <ShortcutKey></ShortcutKey> -->
     <Contextmenu :mindMap="mindMap"></Contextmenu>
-    <HoverNode :mindMap="mindMap"></HoverNode>
-    <NodeNoteContentShow></NodeNoteContentShow>
+    <!-- <HoverNode :mindMap="mindMap"></HoverNode> -->
+    <!-- <NodeNoteContentShow></NodeNoteContentShow> -->
   </div>
 </template>
 
 <script>
+
 import MindMap from 'simple-mind-map'
 import Outline from './Outline'
 import Style from './Style'
@@ -26,7 +27,7 @@ import Count from './Count'
 import NavigatorToolbar from './NavigatorToolbar'
 import ShortcutKey from './ShortcutKey'
 import Contextmenu from './Contextmenu'
-import HoverNode from './hoverNode'
+// import HoverNode from './hoverNode'
 import NodeNoteContentShow from './NodeNoteContentShow.vue'
 import { getData, storeData, storeConfig } from '@/api'
 
@@ -38,24 +39,44 @@ import { getData, storeData, storeConfig } from '@/api'
 export default {
   name: 'Edit',
   components: {
+    // eslint-disable-next-line vue/no-unused-components
     Outline,
+    // eslint-disable-next-line vue/no-unused-components
     Style,
+    // eslint-disable-next-line vue/no-unused-components
     BaseStyle,
+    // eslint-disable-next-line vue/no-unused-components
     Theme,
+    // eslint-disable-next-line vue/no-unused-components
     Structure,
+    // eslint-disable-next-line vue/no-unused-components
     Count,
+    // eslint-disable-next-line vue/no-unused-components
     NavigatorToolbar,
+    // eslint-disable-next-line vue/no-unused-components
     ShortcutKey,
+    // eslint-disable-next-line vue/no-unused-components
     Contextmenu,
-    HoverNode,
+    // HoverNode,
+    // eslint-disable-next-line vue/no-unused-components
     NodeNoteContentShow
   },
   data () {
     return {
+      directoryId: '',
+      timeDiffer: 0,
       mindMap: null,
       mindMapData: null,
       prevImg: '',
       openTest: false
+    }
+  },
+  watch: {
+    timeDiffer (newVal, oldVal) {
+      if (newVal - oldVal <= 500) {
+        console.log('😀😀timeDiffer-----双击😀😀😀===>')
+        this.$bus.$emit('handleNodeClick', this.directoryId)
+      }
     }
   },
   mounted () {
@@ -65,6 +86,7 @@ export default {
     this.$bus.$on('export', this.export)
     this.$bus.$on('setData', this.setData)
     this.$bus.$on('node_click', this.nodeClick)
+    this.$bus.$on('node_dblclick', this.nodeDbClick)
     this.$bus.$on('mouseover', this.mouseEvent('mouseover'))
     this.$bus.$on('mouseout', this.mouseEvent('mouseout'))
     this.$bus.$on('startTextEdit', () => {
@@ -82,10 +104,10 @@ export default {
   },
   methods: {
     mouseEvent (event) {
-      console.log('鼠标事件结果😀😀😀===>', event)
+      // console.log('鼠标事件结果😀😀😀===>', event)
     },
     getNode () {
-      console.log('this.mindMap.renderer结果😀😀😀===>', this.mindMap.renderer)
+      // console.log('this.mindMap.renderer结果😀😀😀===>', this.mindMap.renderer)
     },
     /**
      * @Author: 王林25
@@ -182,6 +204,7 @@ export default {
      */
     init () {
       const { root, layout, theme, view } = this.mindMapData
+      console.log('theme结果😀😀😀===>', theme)
       this.mindMap = new MindMap({
         el: this.$refs.mindMapContainer,
         data: root,
@@ -198,6 +221,7 @@ export default {
           }
         }
       })
+      // this.mindMap.setMode('readonly')
       this.mindMap.keyCommand.addShortcut('Control+s', () => {
         this.manualSave()
       })
@@ -209,17 +233,18 @@ export default {
         'back_forward',
         'node_contextmenu',
         'node_click',
+        'node_dblclick',
         'draw_click',
         'expand_btn_click',
         'svg_mousedown',
         'mouseup',
-        'mode_change',
-        'mouseover',
-        'mouseout'
+        'mode_change'
+        // 'mouseover',
+        // 'mouseout'
       ].forEach((event) => {
         this.mindMap.on(event, (...args) => {
           // console.log('event结果😀😀😀===>', event)
-          console.log('...args结果😀😀😀===>', ...args)
+          // console.log('...args结果😀😀😀===>', ...args)
           this.$bus.$emit(event, ...args)
         })
       })
@@ -236,10 +261,22 @@ export default {
       this.mindMap.setData(data)
       this.manualSave()
     },
-    nodeClick (data, e) {
+    nodeClick (node, e) {
       // this.mindMap.setData(data)
       // this.manualSave()
-      console.log('nodeClick结果😀😀😀===>', data)
+      // this.timeDiffer = new Date().getTime()
+      this.directoryId = node.nodeData.data.directoryId
+      console.log('nodeClick结果😀😀😀===>', node.nodeData.data)
+      // this.$bus.$emit('handleNodeClick', node.nodeData.data.directoryId)
+      // console.log('nodeClick  e结果😀😀😀===>', e)
+    },
+    nodeDbClick (node, e) {
+      // this.mindMap.setData(data)
+      // this.manualSave()
+      // this.timeDiffer = new Date().getTime()
+      // this.directoryId = node.nodeData.data.directoryId
+      console.log('nodeDbClick结果😀😀😀===>', node.nodeData.data)
+      this.$bus.$emit('handleNodeClick', node.nodeData.data.directoryId)
       // console.log('nodeClick  e结果😀😀😀===>', e)
     },
 
