@@ -61,7 +61,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "lquilleditor" */ '../views/funs/LocalQuillEditor.vue')
   },
   {
-    path: '/about',
+    path: '/word',
     name: 'About',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
@@ -69,7 +69,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
-    path: '/helloWorld',
+    path: '/sheet',
     name: 'HelloWorld',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route

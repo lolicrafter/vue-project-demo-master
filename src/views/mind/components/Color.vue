@@ -15,6 +15,7 @@
         size="mini"
         v-model="selectColor"
         @change="changeColor"
+        :append-to-body="false"
       ></el-color-picker>
     </div>
   </div>

@@ -1,68 +1,64 @@
 <template>
   <div id="ykEditor">
-    <ckeditor id="ckeditor"
-    :editor="editor"
-    v-model="editorData"
-    :config="editorConfig"></ckeditor>
+    <ckeditor :editor="editor" v-model="editorData" :config="editorConfig"></ckeditor>
   </div>
 </template>
 
 <script>
-// import ClassicEditor from 'ckeditor5-editor-classic'
-// import ClassicEditor from '@ckeditor/ckeditor5-editor-classic'
-import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor'
-
 import CKEditor from '@ckeditor/ckeditor5-vue2'
-// import '@ckeditor/ckeditor5-build-classic/build/translations/zh-cn'
+// ⚠️ NOTE: We don't use @ckeditor/ckeditor5-build-classic any more!
+// Since we're building CKEditor from source, we use the source version of ClassicEditor.
+import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor'
+import EssentialsPlugin from '@ckeditor/ckeditor5-essentials/src/essentials'
+import BoldPlugin from '@ckeditor/ckeditor5-basic-styles/src/bold'
+import ItalicPlugin from '@ckeditor/ckeditor5-basic-styles/src/italic'
+import LinkPlugin from '@ckeditor/ckeditor5-link/src/link'
+import ParagraphPlugin from '@ckeditor/ckeditor5-paragraph/src/paragraph'
+import Heading from '@ckeditor/ckeditor5-heading/src/heading'
 
 export default {
-  name: 'ClassicEditor',
-
+  name: 'ykEditor',
   components: {
-    // 局部注册方式
+    // Use the <ckeditor> component in this view.
     ckeditor: CKEditor.component
   },
-
-  props: {
-    content: {
-      type: String,
-      default: ''
-    },
-    placeholder: {
-      type: String,
-      default: '请输入内容'
-    }
-  },
-
   data () {
     return {
-      // Use the <ckeditor> component in this view.
       editor: ClassicEditor,
-      editorData: this.content,
+      editorData: '',
       editorConfig: {
-        placeholder: this.placeholder,
-        language: 'zh-cn',
-        // 该方式本人没有使用过,使用ckfinder上传时要注意返回的格式
-        // 应该是{"uploaded":1,"url":"/"}
-        // 或者{"uploaded":true,"url":"/"}
-        ckfinder: {
-          uploadUrl: '/',
-          options: {
-            resourceType: 'Images'
-          }
+        placeholder: '请填写内容',
+        plugins: [
+          EssentialsPlugin,
+          BoldPlugin,
+          ItalicPlugin,
+          LinkPlugin,
+          ParagraphPlugin,
+          Heading
+
+        ],
+
+        toolbar: {
+          items: [
+            'heading',
+            '|',
+            'bold',
+            'italic',
+            'link',
+            'undo',
+            'redo'
+          ]
+        },
+
+        heading: {
+          options: [
+            { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+            { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+            { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+            { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' }
+          ]
         }
       }
-    }
-  },
-
-  methods: {
-
-    getContent () {
-      return this.editorData
-    },
-
-    setContent (val) {
-      this.editorData = val
     }
   }
 
@@ -70,7 +66,11 @@ export default {
 </script>
 
 <style>
-.ck-editor__editable {
-  min-height: 400px;
-}
+  /*编辑框最低高度*/
+  .ck-editor__editable{
+    min-height: 400px;
+  }
+  strong{
+    font-weight: bold;
+  }
 </style>

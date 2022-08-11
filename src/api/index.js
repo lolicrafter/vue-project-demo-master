@@ -26,7 +26,8 @@ const copyMindMapTreeData = (tree, root) => {
  * @Desc: 获取缓存的思维导图数据
  */
 export const getData = () => {
-  const store = localStorage.getItem(SIMPLE_MIND_MAP_DATA)
+  // const store = localStorage.getItem(SIMPLE_MIND_MAP_DATA)
+  const store = null
   if (store === null) {
     return simpleDeepClone(exampleData)
   } else {

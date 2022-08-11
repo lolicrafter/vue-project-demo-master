@@ -3,6 +3,9 @@ const CKEditorWebpackPlugin = require('@ckeditor/ckeditor5-dev-webpack-plugin')
 const { styles } = require('@ckeditor/ckeditor5-dev-utils')
 
 module.exports = {
+  parallel: false,
+  publicPath: './', // 根域上下文目录
+
   // The source of CKEditor is encapsulated in ES6 modules. By default, the code
   // from the node_modules directory is not transpiled, so you must explicitly tell
   // the CLI tools to transpile JavaScript files in all ckeditor5-* modules.

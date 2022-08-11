@@ -30,7 +30,7 @@
 <script>
 import LuckyExcel from 'luckyexcel'
 import { exportExcel } from './export'
-
+// const luckysheet = null
 export default {
   name: 'HelloWorld',
   props: {
@@ -58,6 +58,7 @@ export default {
       const flag = localStorage.getItem('sheet')
       console.log('flag结果😀😀😀===>', flag)
       if (flag) {
+        // eslint-disable-next-line no-undef
         luckysheet.create(JSON.parse(flag))
       } else {
         this.init()
@@ -69,6 +70,7 @@ export default {
   },
   methods: {
     init () {
+      // eslint-disable-next-line no-undef
       luckysheet.create({
         container: 'luckysheet', // 设定DOM容器的id
         title: 'Luckysheet Demo', // 设定表格名称
@@ -197,8 +199,11 @@ export default {
     //   console.log('getAllSheets结果😀😀😀===>', res)
       //   const res2 = luckysheet.getAllSheets()
       //   console.log('getAllSheets toJson结果😀😀😀===>', res.toJson())
+      // eslint-disable-next-line no-undef
       console.log('luckysheet.toJson()结果😀😀😀===>', luckysheet.toJson())
+      // eslint-disable-next-line no-undef
       localStorage.setItem('sheet', JSON.stringify(luckysheet.toJson()))
+      // eslint-disable-next-line no-undef
       exportExcel(luckysheet.getluckysheetfile(), luckysheet.toJson().title)
       //   const value = this.selected
       //   if (value.length === 0) {

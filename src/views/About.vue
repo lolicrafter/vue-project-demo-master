@@ -27,11 +27,12 @@ export default {
   // 方法集合
   methods: {
     setContent () {
-      this.$refs.editorRef.setContent('<h1>这是ykEditor</h1>')
+      // this.$refs.editorRef.setContent('<h1>这是ykEditor</h1>')
+      this.$refs.editorRef.setData()
     },
 
     getContent () {
-      console.log(this.$refs.editorRef)
+      console.log('结果😀😀😀===>', this.$refs.editorRef.getData())
     }
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
@@ -42,4 +43,7 @@ export default {
 }
 </script>
 <style scoped lang='scss'>
+strong{
+  font-weight: bold;
+}
 </style>

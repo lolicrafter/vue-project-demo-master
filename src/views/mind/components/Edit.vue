@@ -1,17 +1,17 @@
 <template>
   <div class="editContainer">
     <div class="mindMapContainer" ref="mindMapContainer"></div>
-    <!-- <Count></Count> -->
-    <!-- <NavigatorToolbar :mindMap="mindMap"></NavigatorToolbar> -->
-     <!-- <Outline></Outline> -->
-    <!-- <Style></Style> -->
-    <!-- <BaseStyle :data="mindMapData" :mindMap="mindMap"></BaseStyle> -->
-    <!-- <Theme :mindMap="mindMap"></Theme> -->
-    <!-- <Structure :mindMap="mindMap"></Structure> -->
-    <!-- <ShortcutKey></ShortcutKey> -->
+    <Count></Count>
+    <NavigatorToolbar :mindMap="mindMap"></NavigatorToolbar>
+     <Outline></Outline>
+    <Style></Style>
+    <BaseStyle :data="mindMapData" :mindMap="mindMap"></BaseStyle>
+    <Theme :mindMap="mindMap"></Theme>
+    <Structure :mindMap="mindMap"></Structure>
+    <ShortcutKey></ShortcutKey>
     <Contextmenu :mindMap="mindMap"></Contextmenu>
     <!-- <HoverNode :mindMap="mindMap"></HoverNode> -->
-    <!-- <NodeNoteContentShow></NodeNoteContentShow> -->
+    <NodeNoteContentShow></NodeNoteContentShow>
   </div>
 </template>
 
@@ -204,7 +204,7 @@ export default {
      */
     init () {
       const { root, layout, theme, view } = this.mindMapData
-      console.log('theme结果😀😀😀===>', theme)
+      // console.log('theme结果😀😀😀===>', theme)
       this.mindMap = new MindMap({
         el: this.$refs.mindMapContainer,
         data: root,
@@ -260,6 +260,7 @@ export default {
     setData (data) {
       this.mindMap.setData(data)
       this.manualSave()
+      this.$bus.$emit('showTheme')
     },
     nodeClick (node, e) {
       // this.mindMap.setData(data)

@@ -44,7 +44,9 @@ export default {
     }
   },
   created () {
+    console.log('theme created结果😀😀😀===>')
     this.$bus.$on('showTheme', () => {
+      console.log('showTheme结果😀😀😀===>')
       this.$refs.sidebar.show = false
       this.$nextTick(() => {
         this.theme = this.mindMap.getTheme()

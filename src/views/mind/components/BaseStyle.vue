@@ -60,7 +60,7 @@
             v-popover:popover
             :style="{ backgroundColor: style.lineColor }"
           ></span>
-          <el-popover ref="popover" placement="bottom" trigger="click">
+          <el-popover ref="popover" placement="bottom" trigger="click" :append-to-body="false">
             <Color
               :color="style.lineColor"
               @change="

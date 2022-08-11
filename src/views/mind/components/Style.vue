@@ -16,6 +16,7 @@
               v-model="style.fontFamily"
               placeholder=""
               @change="update('fontFamily')"
+              :popper-append-to-body="false"
             >
               <el-option
                 v-for="item in fontFamilyList"
@@ -37,6 +38,7 @@
               v-model="style.fontSize"
               placeholder=""
               @change="update('fontSize')"
+              :popper-append-to-body="false"
             >
               <el-option
                 v-for="item in fontSizeList"
@@ -55,6 +57,7 @@
               v-model="style.lineHeight"
               placeholder=""
               @change="update('lineHeight')"
+              :popper-append-to-body="false"
             >
               <el-option
                 v-for="item in lineHeightList"
@@ -105,10 +108,10 @@
               </div>
             </el-tooltip>
           </div>
-          <el-popover ref="popover" placement="bottom" trigger="click">
+          <el-popover ref="popover" placement="bottom" trigger="click" :append-to-body="false">
             <Color :color="style.color" @change="changeFontColor"></Color>
           </el-popover>
-          <el-popover ref="popover2" placement="bottom" trigger="click">
+          <el-popover ref="popover2" placement="bottom" trigger="click" :append-to-body="false">
             <el-radio-group
               size="mini"
               v-model="style.textDecoration"
@@ -130,7 +133,7 @@
               v-popover:popover3
               :style="{ width: '80px', backgroundColor: style.borderColor }"
             ></span>
-            <el-popover ref="popover3" placement="bottom" trigger="click">
+            <el-popover ref="popover3" placement="bottom" trigger="click" :append-to-body="false">
               <Color
                 :color="style.borderColor"
                 @change="changeBorderColor"
@@ -145,6 +148,7 @@
               v-model="style.borderDasharray"
               placeholder=""
               @change="update('borderDasharray')"
+              :popper-append-to-body="false"
             >
               <el-option
                 v-for="item in borderDasharrayList"
@@ -165,6 +169,7 @@
               v-model="style.borderWidth"
               placeholder=""
               @change="update('borderWidth')"
+              :popper-append-to-body="false"
             >
               <el-option
                 v-for="item in borderWidthList"
@@ -183,6 +188,7 @@
               v-model="style.borderRadius"
               placeholder=""
               @change="update('borderRadius')"
+              :popper-append-to-body="false"
             >
               <el-option
                 v-for="item in borderRadiusList"
@@ -204,7 +210,7 @@
               v-popover:popover4
               :style="{ backgroundColor: style.fillColor }"
             ></span>
-            <el-popover ref="popover4" placement="bottom" trigger="click">
+            <el-popover ref="popover4" placement="bottom" trigger="click" :append-to-body="false">
               <Color :color="style.fillColor" @change="changeFillColor"></Color>
             </el-popover>
           </div>
@@ -288,6 +294,7 @@ export default {
     }
   },
   created () {
+    console.log('fontSizeList结果😀😀😀===>', fontSizeList)
     this.$bus.$on('node_active', (...args) => {
       this.$refs.sidebar.show = false
       this.$nextTick(() => {
@@ -305,6 +312,7 @@ export default {
      * @Desc: tab切换
      */
     handleTabClick () {
+      console.log('tab切换结果😀😀😀===>')
       this.initNodeStyle()
     },
 
